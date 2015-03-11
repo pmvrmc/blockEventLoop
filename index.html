@@ -1,0 +1,78 @@
+<html>
+
+	<head>
+		<script src='bower_components/jquery/dist/jquery.min.js'></script>
+		<script src='bower_components/async/lib/async.js'></script>
+		<script src='bower_components/underscore/underscore-min.js'></script>
+	</head>
+
+	<body>
+		Hello, World! <br> <br>
+
+		Input: <input type='text'/> <br> <br>
+
+		<button id='for'>For freeze!</button> <br> <br>
+
+		<button id='forEach'>FroEach freeze!</button> <br> <br>
+
+		<button id='underscore'>Undescore freeze!</button> <br> <br>
+
+		<button id='async'>Should have no freeze!</button>
+
+		<div id='spam'></div>
+
+	</body>
+
+
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			var start, end;
+			var array = [];
+
+			for(var i = 0; i < 1e5; i++) array.push(i);
+
+			$('#for').on('click', function(){
+				console.log('i am as');
+				start = new Date();
+				for(var i = 0; i < array.length; i++){
+					$('#spam').append('<p>SPAM ' + array[i] + '</p>');
+				};
+				end = new Date();
+				alert('Froze for ' + (end-start) + ' ms');
+			});
+
+			$('#forEach').on('click', function(){
+				start = new Date();
+				array.forEach(function(el){
+					$('#spam').append('<p>SPAM ' + el + '</p>');
+				});
+				end = new Date();
+				alert('Froze for ' + (end-start) + ' ms');
+			});
+
+			$('#underscore').on('click', function(){
+				start = new Date();
+				_.each(array, function(el){
+					$('#spam').append('<p>SPAM ' + el + '</p>');
+				});
+				end = new Date();
+				alert('Froze for ' + (end-start) + ' ms');
+			});
+
+			$('#async').on('click', function(){
+				start = new Date();
+				async.each(array, function(el, callback){
+					$('#spam').append('<p>SPAM ' + el + '</p>');
+					callback();
+				}, function(err){
+					if(err) console.err(err);
+					end = new Date();
+					alert('Froze for ' + (end-start) + ' ms');
+				});
+			});
+		})
+	</script>
+
+
+
+</html>
