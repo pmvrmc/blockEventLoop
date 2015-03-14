@@ -2,19 +2,11 @@
   "name": "blockEventLoop",
   "version": "0.0.0",
   "homepage": "https://github.com/pmvrmc/blockEventLoop",
-  "authors": [
-    "Pedro Matos de Carvalho <pedromatosdecarvalho@gmail.com>"
-  ],
   "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
-    "async": "~0.9.2",
     "underscore": "~1.8.2",
     "jquery": "~2.1.3"
   }
