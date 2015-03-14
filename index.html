@@ -9,8 +9,6 @@
 	<body>
 		Hello, World! <br> <br>
 
-		Input: <input type='text'/> <br> <br>
-
 		<button id='for'>For freeze!</button> <br> <br>
 
 		<button id='forEach'>FroEach freeze!</button> <br> <br>
@@ -27,15 +25,13 @@
 	<script type="text/javascript">
 		$( document ).ready(function() {
 			var start, end;
-			var array = [];
-
-			for(var i = 0; i < 1e5; i++) array.push(i);
+			var array = [0, 1, 2, 3, 4];
 
 			$('#for').on('click', function(){
-				console.log('i am as');
 				start = new Date();
 				for(var i = 0; i < array.length; i++){
-					$('#spam').append('<p>SPAM ' + array[i] + '</p>');
+					count();
+					console.log(array[i]);
 				};
 				end = new Date();
 				alert('Froze for ' + (end-start) + ' ms');
@@ -44,7 +40,8 @@
 			$('#forEach').on('click', function(){
 				start = new Date();
 				array.forEach(function(el){
-					$('#spam').append('<p>SPAM ' + el + '</p>');
+					count();
+					console.log(el);
 				});
 				end = new Date();
 				alert('Froze for ' + (end-start) + ' ms');
@@ -53,7 +50,8 @@
 			$('#underscore').on('click', function(){
 				start = new Date();
 				_.each(array, function(el){
-					$('#spam').append('<p>SPAM ' + el + '</p>');
+					count();
+					console.log(el);
 				});
 				end = new Date();
 				alert('Froze for ' + (end-start) + ' ms');
@@ -61,15 +59,19 @@
 
 			$('#async').on('click', function(){
 				start = new Date();
-				async.each(array, function(el, callback){
-					$('#spam').append('<p>SPAM ' + el + '</p>');
-					callback();
-				}, function(err){
-					if(err) console.err(err);
-					end = new Date();
-					alert('Froze for ' + (end-start) + ' ms');
+				array.forEach(function(el){
+					setTimeout(function(){
+						count();
+						console.log(el);
+					}, 0);
 				});
+				end = new Date();
+				alert('Froze for ' + (end-start) + ' ms');
 			});
+
+			function count(){
+				for(var i = 0; i < 2e8; i++);
+			}
 		})
 	</script>
 
